@@ -1,0 +1,32 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - nvm use 16
+        - npm ci --legacy-peer-deps
+        - echo "NODE OPTIONS" && echo $NODE_OPTIONS
+        - export NODE_OPTIONS="--max-old-space-size=4096"
+        - echo "NODE OPTIONS AFTER" && echo $NODE_OPTIONS
+    build:
+      commands:
+        - echo "Building..."
+        - npm run build
+  artifacts:
+    baseDirectory: dist
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+      - .npm/**/*
+
+  customHeaders:
+    - pattern: '**/*'
+      headers:
+        - key: 'Cache-Control'
+          value: 'public, max-age=31536000, immutable'
+    - pattern: 'index.html'
+      headers:
+        - key: 'Cache-Control'
+          value: 'public, max-age=0, must-revalidate'
