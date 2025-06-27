@@ -1,0 +1,11 @@
+# Set correct MIME types for JavaScript files
+*.js
+  Content-Type: text/javascript; charset=utf-8
+*.mjs
+  Content-Type: text/javascript; charset=utf-8
+
+# Security headers
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
